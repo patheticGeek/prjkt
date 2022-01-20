@@ -11,18 +11,37 @@ import (
 
 func createProject(c *cli.Context) error {
 	url := c.String("url")
+	destination := c.String("destination")
+	preserveGit := c.Bool("preserve-git")
 
-	fmt.Println("Cloning repo: " + url)
+	fmt.Println("Cloning repo:", url)
+	fmt.Println("Destination:", destination)
+	fmt.Println("Preserve git:", preserveGit)
+	fmt.Println("")
 
-	_, err := git.PlainClone("./", false, &git.CloneOptions{
+	var depth int
+	if !preserveGit {
+		depth = 1
+	}
+
+	// Clone the repo
+	_, err := git.PlainClone(destination, false, &git.CloneOptions{
 		URL:      url,
 		Progress: os.Stdout,
+		Depth:    depth,
 	})
 
+	if !preserveGit {
+		// Delete the git folder
+		os.RemoveAll(destination + "/.git")
+	}
+
 	if err != nil {
-		fmt.Println("An error occurred cloning the repo")
 		return err
 	}
+
+	fmt.Println("")
+	fmt.Println("✨ Done")
 
 	return nil
 }
@@ -43,6 +62,12 @@ func main() {
 						Aliases:  []string{"u"},
 						Required: true,
 						Usage:    "The url of the repo to create project from",
+					},
+					&cli.StringFlag{
+						Name:    "destination",
+						Aliases: []string{"d"},
+						Usage:   "Path of the destination folder to clone to",
+						Value:   "new-prjkt",
 					},
 					&cli.BoolFlag{
 						Name:    "preserve-git",
