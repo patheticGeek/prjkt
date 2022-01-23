@@ -2,8 +2,6 @@
 
 Project scaffolding made easy!
 
-<hr>
-
 ## Motivation
 Heavily Inspired by [degit](https://www.npmjs.com/package/degit). I liked the concept of it and what it had for plan. But by looking at repo it seems there's no development going on with it so i decided to make this while learning go.
 
