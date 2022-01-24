@@ -31,3 +31,5 @@ require (
 )
 
 replace internal/utils => ../utils
+
+replace internal/types => ../types

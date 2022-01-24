@@ -2,6 +2,10 @@ module utils
 
 go 1.17
 
+replace internal/commands => ../commands
+
+replace internal/types => ../types
+
 require github.com/go-git/go-git/v5 v5.4.2
 
 require (
@@ -22,10 +26,3 @@ require (
 	golang.org/x/sys v0.0.0-20210502180810-71e4cd670f79 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
-
-require (
-	github.com/urfave/cli/v2 v2.3.0
-	internal/commands v1.0.0
-)
-
-replace internal/commands => ../commands
