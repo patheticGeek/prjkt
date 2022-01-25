@@ -14,14 +14,17 @@ func ParseUrl(url string) (string, plumbing.ReferenceName) {
 	urlPattern := regexp.MustCompile(`(?:(?:https:\/\/)?([^:/]+\.[^:/]+)\/|git@([^:/]+)[:/]|([^/]+):)?([^/\s]+)\/([^/\s@#]+)(?:#(.+))?(?:@(.+))?`)
 
 	result := urlPattern.FindStringSubmatch(url)
-	// { fullUrl, empty, website, empty, username, repo, tag, branch }
+	// { fullUrl, website if https, website if git@, website if none of before, username, repo, tag, branch }
 
-	var site string = "https://github.com"
+	var site string = "https://github.com/"
+	if result[1] != "" {
+		site = result[1] + "/"
+	}
 	if result[2] != "" {
-		site = result[2]
+		site = "git@" + result[2] + ":"
 	}
 
-	finalUrl = site + "/" + result[4] + "/" + result[5]
+	finalUrl = site + result[4] + "/" + result[5]
 
 	if result[6] != "" {
 		fmt.Println(result[6])

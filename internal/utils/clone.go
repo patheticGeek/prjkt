@@ -10,7 +10,6 @@ import (
 
 func CloneRepo(destination, url string, preserveGit bool) error {
 	finalUrl, ref := ParseUrl(url)
-	fmt.Println(finalUrl, ref)
 
 	err := CloneWithGit(destination, finalUrl, ref, preserveGit)
 	if err != nil {
