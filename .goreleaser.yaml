@@ -25,11 +25,11 @@ changelog:
   sort: asc
   groups:
   - title: Features
-    regexp: "^✨"
-    order: 0
-  - title: 'Bug fixes'
-    regexp: "🐛"
+    regexp: "^✨(.*)"
     order: 1
+  - title: 'Bug fixes'
+    regexp: "^🐛(.*)"
+    order: 2
   - title: Others
     order: 999
   filters:
