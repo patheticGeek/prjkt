@@ -10,27 +10,27 @@ Heavily Inspired by [degit](https://www.npmjs.com/package/degit). I liked the co
 ## Installation
 
 1. Clone the repo
-```bash
+```
 git clone https://github.com/patheticGeek/prjkt.git
 ```
 2. Install
-```bash
+```
 go install .
 ```
 3. Test if it's working with
-```bash
+```
 prjkt help
 ```
 
 ## Usage:
 
 Basic usage:
-```bash
-prjkt c -u https://github.com/patheticGeek/pg-nextjs-boilerplate
+```
+prjkt c -u patheticGeek/pg-nextjs-boilerplate -d my-new-project
 ```
 This will clone and remove git from the project
 
 More options for create command:
-```bash
+```
 prjkt help create
 ```

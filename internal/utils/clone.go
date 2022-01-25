@@ -5,11 +5,23 @@ import (
 	"os"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing"
 )
 
-func CloneWithGit(destination, url string, preserveGit bool) error {
+func CloneRepo(destination, url string, preserveGit bool) error {
+	finalUrl, ref := ParseUrl(url)
+	fmt.Println(finalUrl, ref)
+
+	err := CloneWithGit(destination, finalUrl, ref, preserveGit)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func CloneWithGit(destination, url string, ref plumbing.ReferenceName, preserveGit bool) error {
 	fmt.Println("🔃 Cloning repo")
-	// finalUrl, ref := ParseUrl(url)
 
 	var depth int
 	if !preserveGit {
@@ -18,11 +30,11 @@ func CloneWithGit(destination, url string, preserveGit bool) error {
 
 	// Clone the repo
 	_, err := git.PlainClone(destination, false, &git.CloneOptions{
-		URL:      url,
-		Progress: os.Stdout,
-		Depth:    depth,
+		URL:           url,
+		Progress:      os.Stdout,
+		Depth:         depth,
+		ReferenceName: ref,
 	})
-
 	if err != nil {
 		return err
 	}
