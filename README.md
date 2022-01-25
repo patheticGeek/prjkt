@@ -14,7 +14,8 @@ Heavily Inspired by [degit](https://www.npmjs.com/package/degit). I liked the co
 npm i -g prjkt-installer
 ```
 
-#### By cloning the repo
+<details>
+<summary>By cloning the repo</summary>
 
 1. Clone the repo
     ```
@@ -28,6 +29,7 @@ npm i -g prjkt-installer
     ```
     prjkt help
     ```
+</details>
 
 ## Usage:
 
