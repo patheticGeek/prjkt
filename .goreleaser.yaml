@@ -12,14 +12,8 @@ builds:
       - linux
       - windows
       - darwin
-
-archives:
-  - replacements:
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
-      386: i386
-      amd64: x86_64
+    goarch:
+      - amd64
 
 checksum:
   name_template: 'checksums.txt'
@@ -29,10 +23,22 @@ snapshot:
 
 changelog:
   sort: asc
+  groups:
+  - title: Features
+    regexp: "^✨"
+    order: 0
+  - title: 'Bug fixes'
+    regexp: "🐛"
+    order: 1
+  - title: Others
+    order: 999
   filters:
     exclude:
       - '^📝' # docs
       - '^✅' # tests
+      - '^👷' # CI/CD
+      - '^🚧' # WIP
+      - '^🚨' # Lint
 
 release:
   github:
