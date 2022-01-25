@@ -1,0 +1,35 @@
+{
+  "name": "prjkt-installer",
+  "version": "0.0.1",
+  "description": "Installer for prjkt",
+  "scripts": {
+    "postinstall": "go-npm install",
+    "preuninstall": "go-npm uninstall"
+  },
+  "goBinary": {
+    "name": "prjkt",
+    "path": "./bin",
+    "url": "https://github.com/patheticGeek/prjkt/releases/download/v{{version}}/prjkt_{{version}}_{{platform}}_{{arch}}.tar.gz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patheticGeek/prjkt.git"
+  },
+  "keywords": [
+    "prjkt",
+    "golang",
+    "scaffolding"
+  ],
+  "author": {
+    "name": "Pathetic Geek",
+    "url": "https://github.com/patheticGeek"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/patheticGeek/prjkt/issues"
+  },
+  "homepage": "https://github.com/patheticGeek/prjkt#readme",
+  "dependencies": {
+    "go-npm": "^0.1.9"
+  }
+}
