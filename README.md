@@ -9,18 +9,25 @@ Heavily Inspired by [degit](https://www.npmjs.com/package/degit). I liked the co
 
 ## Installation
 
+### With npm (Preferred)
+```
+npm i -g prjkt-installer
+```
+
+### By cloning the repo
+
 1. Clone the repo
-```
-git clone https://github.com/patheticGeek/prjkt.git
-```
+    ```
+    git clone https://github.com/patheticGeek/prjkt.git
+    ```
 2. Install
-```
-go install .
-```
+    ```
+    go install .
+    ```
 3. Test if it's working with
-```
-prjkt help
-```
+    ```
+    prjkt help
+    ```
 
 ## Usage:
 
