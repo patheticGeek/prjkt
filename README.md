@@ -9,12 +9,12 @@ Heavily Inspired by [degit](https://www.npmjs.com/package/degit). I liked the co
 
 ## Installation
 
-### With npm (Preferred)
+#### With npm (Preferred)
 ```
 npm i -g prjkt-installer
 ```
 
-### By cloning the repo
+#### By cloning the repo
 
 1. Clone the repo
     ```
