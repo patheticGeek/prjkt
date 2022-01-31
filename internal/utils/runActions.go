@@ -28,6 +28,8 @@ func RunActions(actions types.ActionsMap, destination string) error {
 		switch action["type"] {
 		case "exec":
 			err = ExecAction(action, destination)
+		case "delete":
+			err = DeleteAction(action, destination)
 		default:
 			fmt.Println("Invalid action type: " + action["type"])
 		}
