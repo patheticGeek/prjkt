@@ -1,18 +1,20 @@
 package utils
 
 import (
-	"bytes"
+	"os"
 	"os/exec"
 )
 
 const ShellToUse string = "bash"
 
-func Shellout(command string) (string, string, error) {
-	var stdout bytes.Buffer
-	var stderr bytes.Buffer
+func Shellout(command string) error {
 	cmd := exec.Command(ShellToUse, "-c", command)
-	cmd.Stdout = &stdout
-	cmd.Stderr = &stderr
+
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Stdin = os.Stdin
+
 	err := cmd.Run()
-	return stdout.String(), stderr.String(), err
+
+	return err
 }

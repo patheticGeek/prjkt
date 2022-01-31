@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	types "internal/types"
 	"io/ioutil"
 	"os"
@@ -12,8 +11,7 @@ import (
 )
 
 func ExecAction(action types.Action, destination string) error {
-	out, _, err := Shellout(action["run"])
-	fmt.Println(out)
+	err := Shellout(action["run"])
 
 	if err != nil {
 		return err
@@ -39,8 +37,7 @@ func ExecOptionAction(action types.Action, destination string) error {
 		return nil
 	}
 
-	out, _, err := Shellout(action["option-"+selectedOption])
-	fmt.Println(out)
+	err := Shellout(action["option-"+selectedOption])
 
 	if err != nil {
 		return err
