@@ -10,7 +10,7 @@ npm i -g prjkt-installer
 
 ## Usage
 
-For docs [see here](https://github.com/patheticGeek/prjkt) or run:
+For docs [see the wiki](https://github.com/patheticGeek/prjkt/wiki) or run:
 ```
 prjkt help
 ```

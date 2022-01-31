@@ -43,3 +43,7 @@ More options for create command:
 ```
 prjkt help create
 ```
+
+You can also have a `prjkt.yaml` file in your repo that defined what should be done after cloning.
+
+For details about it, [see here](./prjkt.yaml-file).
