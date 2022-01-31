@@ -32,6 +32,8 @@ func RunActions(actions types.ActionsMap, destination string) error {
 			err = ExecOptionAction(action, destination)
 		case "delete":
 			err = DeleteAction(action, destination)
+		case "replace":
+			err = ReplaceAction(action, destination)
 		default:
 			fmt.Println("Invalid action type: " + action["type"])
 		}

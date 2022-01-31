@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	types "internal/types"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -48,17 +49,49 @@ func ExecOptionAction(action types.Action, destination string) error {
 	return nil
 }
 
-func DeleteAction(action types.Action, destination string) error {
-	files := strings.Split(action["files"], ",")
+func ReplaceAction(action types.Action, destination string) error {
+	answer := ""
+	prompt := &survey.Input{
+		Message: action["prompt"],
+	}
+	survey.AskOne(prompt, &answer)
 
-	for _, filePattern := range files {
+	filePatterns := strings.Split(action["files"], ",")
+	for _, filePattern := range filePatterns {
+		matchingFiles, err := filepath.Glob(strings.Trim(filePattern, " "))
+		if err != nil {
+			return err
+		}
+
+		for _, file := range matchingFiles {
+			read, err := ioutil.ReadFile(file)
+			if err != nil {
+				return err
+			}
+
+			newContents := strings.Replace(string(read), action["to_replace"], answer, -1)
+
+			err = ioutil.WriteFile(file, []byte(newContents), 0)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
+}
+
+func DeleteAction(action types.Action, destination string) error {
+	filePatterns := strings.Split(action["files"], ",")
+
+	for _, filePattern := range filePatterns {
 		filesToDelete, err := filepath.Glob(strings.Trim(filePattern, " "))
 		if err != nil {
 			return err
 		}
 
-		for _, f := range filesToDelete {
-			if err := os.Remove(f); err != nil {
+		for _, file := range filesToDelete {
+			if err := os.Remove(file); err != nil {
 				return err
 			}
 		}
