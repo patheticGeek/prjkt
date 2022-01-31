@@ -37,9 +37,13 @@ Basic usage:
 ```
 prjkt c -u patheticGeek/pg-nextjs-boilerplate -d my-new-project
 ```
-This will clone and remove git from the project
+This will clone and remove git from the project and run any actions if specified
 
 More options for create command:
 ```
 prjkt help create
 ```
+
+You can also have a `prjkt.yaml` file in your repo that defined what should be done after cloning.
+
+For details about it, [see here](./prjkt.yaml-file).

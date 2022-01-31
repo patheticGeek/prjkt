@@ -1,8 +1,12 @@
 package commands
 
 import (
+	"errors"
 	"fmt"
 	"internal/utils"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 
 	"github.com/urfave/cli/v2"
 )
@@ -58,6 +62,11 @@ var CreateProjectCommand = cli.Command{
 	},
 }
 
+func printDefaultSuccessMessage() {
+	fmt.Println("")
+	fmt.Println("✨ Happy hacking!")
+}
+
 func CreateProject(c *cli.Context) error {
 	url := c.String("url")
 	destination := c.String("destination")
@@ -65,13 +74,53 @@ func CreateProject(c *cli.Context) error {
 
 	err := utils.CloneRepo(destination, url, preserveGit)
 	if err != nil {
-		fmt.Println("")
-		fmt.Println("🚨 Some error occurred")
+		fmt.Println("🚨 An error occurred cloning the repo")
 		return err
 	}
 
-	fmt.Println("")
-	fmt.Println("✨ Happy hacking!")
+	prjktYAMLPath := filepath.Join(destination, "/prjkt.yaml")
+
+	// Check if prjkt.yaml exists, if it doesn't exit
+	if _, err := os.Stat(prjktYAMLPath); errors.Is(err, os.ErrNotExist) {
+		printDefaultSuccessMessage()
+		return nil
+	}
+
+	// Read the prjkt.yaml file
+	fileData, err := ioutil.ReadFile(prjktYAMLPath)
+	if err != nil {
+		fmt.Println("🚨 An error occurred reading actions file")
+		return err
+	}
+
+	// Parse the prjkt.yaml file data
+	result, err := utils.ParsePrjktYAML(fileData)
+	if err != nil {
+		fmt.Println("🚨 An error occurred parsing actions file")
+		return err
+	}
+
+	if result.Welcome_message != "" {
+		fmt.Println("")
+		fmt.Println(result.Welcome_message)
+	}
+
+	// Run the actions inside it if any
+	err = utils.RunActions(result.Actions, destination)
+
+	if err != nil {
+		fmt.Println("🚨 An error occurred while running the actions")
+		if result.Error_message != "" {
+			fmt.Println(result.Error_message)
+		}
+		return err
+	}
+
+	if result.Success_message != "" {
+		fmt.Println(result.Success_message)
+	} else {
+		printDefaultSuccessMessage()
+	}
 
 	return nil
 }
