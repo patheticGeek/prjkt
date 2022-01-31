@@ -86,13 +86,14 @@ func CreateProject(c *cli.Context) error {
 		return nil
 	}
 
+	// Read the prjkt.yaml file
 	fileData, err := ioutil.ReadFile(prjktYAMLPath)
-
 	if err != nil {
 		fmt.Println("🚨 An error occurred reading actions file")
 		return err
 	}
 
+	// Parse the prjkt.yaml file data
 	result, err := utils.ParsePrjktYAML(fileData)
 	if err != nil {
 		fmt.Println("🚨 An error occurred parsing actions file")
@@ -104,6 +105,7 @@ func CreateProject(c *cli.Context) error {
 		fmt.Println(result.Welcome_message)
 	}
 
+	// Run the actions inside it if any
 	err = utils.RunActions(result.Actions, destination)
 
 	if err != nil {
