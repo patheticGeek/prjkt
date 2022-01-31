@@ -37,7 +37,7 @@ Basic usage:
 ```
 prjkt c -u patheticGeek/pg-nextjs-boilerplate -d my-new-project
 ```
-This will clone and remove git from the project
+This will clone and remove git from the project and run any actions if specified
 
 More options for create command:
 ```
