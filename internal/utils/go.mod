@@ -6,7 +6,10 @@ replace internal/commands => ../commands
 
 replace internal/types => ../types
 
-require github.com/go-git/go-git/v5 v5.4.2
+require (
+	github.com/go-git/go-git/v5 v5.4.2
+	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
+)
 
 require (
 	github.com/Microsoft/go-winio v0.4.16 // indirect
@@ -25,4 +28,5 @@ require (
 	golang.org/x/net v0.0.0-20210326060303-6b1517762897 // indirect
 	golang.org/x/sys v0.0.0-20210502180810-71e4cd670f79 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
+	internal/types v0.0.0-00010101000000-000000000000 // indirect
 )

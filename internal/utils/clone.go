@@ -30,7 +30,6 @@ func CloneWithGit(destination, url string, ref plumbing.ReferenceName, preserveG
 	// Clone the repo
 	_, err := git.PlainClone(destination, false, &git.CloneOptions{
 		URL:           url,
-		Progress:      os.Stdout,
 		Depth:         depth,
 		ReferenceName: ref,
 	})
