@@ -15,15 +15,15 @@ func RunActions(actions types.ActionsMap, destination string) error {
 
 	fmt.Print("\n🔧 Running actions\n\n")
 
-	// Run commands in the project dir
+	// Change current dir to destination dir so commands are executed there
 	wd, _ := os.Getwd()
 	projectPath := filepath.Join(wd, destination)
 	os.Chdir(projectPath)
 
+	var err error
+
 	for i, action := range actions {
 		fmt.Println(strconv.Itoa(i) + ". " + action["name"])
-
-		var err error
 
 		switch action["type"] {
 		case "exec":
@@ -45,5 +45,5 @@ func RunActions(actions types.ActionsMap, destination string) error {
 
 	fmt.Println("")
 
-	return nil
+	return err
 }
