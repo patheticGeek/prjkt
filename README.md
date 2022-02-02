@@ -93,6 +93,8 @@ actions:
     to_replace: <<project_name>>
     files: package.json, **/*.ts
 
+no_actions_message: "Such a smart A$$"
+
 error_message: "LOL this shit broke already!"
 
 success_message: "This went smoother than it did while showing off to my friends! ✨ Enjoy"
@@ -104,6 +106,7 @@ You can have 3 types of messages:
 1. `welcome_message`: This shows up when the repo is cloned and before the actions have run
 2. `error_message`: This shows if there was an error in one of the actions
 3. `success_message`: This shows up if the actions run successfully
+4. `no_actions_message`: If user sets the no-actions flag this will be shown instead of success/error messages
 
 ### Actions
 
