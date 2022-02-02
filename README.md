@@ -51,7 +51,7 @@ npx prjkt help
 
 ### CLI usage:
 ```
-prjkt c -u patheticGeek/pg-nextjs-boilerplate -d my-new-project
+prjkt c patheticGeek/pg-nextjs-boilerplate
 ```
 This will clone and remove git from the project and run any actions if specified
 
