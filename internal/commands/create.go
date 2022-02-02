@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"internal/utils"
 
+	"github.com/AlecAivazis/survey/v2"
 	"github.com/urfave/cli/v2"
 )
 
@@ -94,11 +95,28 @@ func CreateProject(c *cli.Context) error {
 	}
 
 	// If there was no error and length is 0, that means there's no file/default action
+	// In this case try and detect if a default action can be run
+	// If a default action can be run ask user if they want to run it otherwise exit
 	if err == nil && len(fileData) == 0 {
-		fmt.Println("")
-		fmt.Println("ℹ️ No prjkt.yaml or default action found skipping")
-		printDefaultSuccessMessage()
-		return nil
+		action = utils.DetectAction(destination)
+
+		if action != "" {
+			fmt.Println("")
+			runAction := false
+			prompt := &survey.Confirm{
+				Message: "✨ " + action + " project detected, do you want to run default actions for it?",
+			}
+			survey.AskOne(prompt, &runAction)
+
+			if runAction {
+				fileData, err = utils.GetDefaultAction(action)
+			} else {
+				fmt.Println("")
+				fmt.Println("ℹ️ No prjkt.yaml or default action found skipping")
+				printDefaultSuccessMessage()
+				return nil
+			}
+		}
 	} else if err != nil {
 		// If there was an error it means the file/default action was not fond
 		fmt.Println("🚨 An error occurred reading actions file")
