@@ -95,9 +95,9 @@ func CreateProject(c *cli.Context) error {
 	}
 
 	// If there was no error and length is 0, that means there's no file/default action
-	// In this case try and detect if a default action can be run
+	// And if yser hasn't specified no-actions, try and detect if a default action can be run
 	// If a default action can be run ask user if they want to run it otherwise exit
-	if err == nil && len(fileData) == 0 {
+	if err == nil && len(fileData) == 0 && !noActions {
 		action = utils.DetectAction(destination)
 
 		if action != "" {
