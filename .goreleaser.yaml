@@ -25,20 +25,16 @@ changelog:
   sort: asc
   groups:
   - title: Features
-    regexp: "^✨(.*)"
-    order: 1
+    regexp: "^.*(✨|⚡️)[(\\w)]*.*$"
+    order: 0
   - title: 'Bug fixes'
-    regexp: "^🐛(.*)"
-    order: 2
+    regexp: "^.*(🐛|🚑)[(\\w)]*.*$"
+    order: 1
   - title: Others
     order: 999
   filters:
     exclude:
-      - '^📝' # docs
-      - '^✅' # tests
-      - '^👷' # CI/CD
-      - '^🚧' # WIP
-      - '^🚨' # Lint
+      - '^(📝|✅|👷|🚨|🚧|🔀|🔖|⏪|✏️)'
 
 release:
   github:
