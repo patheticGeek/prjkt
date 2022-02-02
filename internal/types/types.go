@@ -11,3 +11,7 @@ type PrjktYAML struct {
 	No_actions_message string
 	Actions            ActionsMap
 }
+
+type GitHubFilesListResp []struct {
+	Name string
+}
