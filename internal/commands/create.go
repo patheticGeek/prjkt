@@ -68,6 +68,7 @@ func CreateProject(c *cli.Context) error {
 		destination = c.Args().Get(1)
 	}
 	preserveGit := c.Bool("preserve-git")
+	noActions := c.Bool("no-actions")
 
 	err := utils.CloneRepo(destination, url, preserveGit)
 	if err != nil {
@@ -102,21 +103,29 @@ func CreateProject(c *cli.Context) error {
 		fmt.Println(result.Welcome_message)
 	}
 
-	// Run the actions inside it if any
-	err = utils.RunActions(result.Actions, destination)
+	// If user hasn't set no-actions flag then run actions if any
+	if !noActions {
+		err = utils.RunActions(result.Actions, destination)
 
-	if err != nil {
-		fmt.Println("🚨 An error occurred while running the actions")
-		if result.Error_message != "" {
-			fmt.Println(result.Error_message)
+		if err != nil {
+			fmt.Println("🚨 An error occurred while running the actions")
+			if result.Error_message != "" {
+				fmt.Println(result.Error_message)
+			}
+			return err
 		}
-		return err
-	}
 
-	if result.Success_message != "" {
-		fmt.Println(result.Success_message)
+		if result.Success_message != "" {
+			fmt.Println(result.Success_message)
+		} else {
+			printDefaultSuccessMessage()
+		}
 	} else {
-		printDefaultSuccessMessage()
+		if result.No_actions_message != "" {
+			fmt.Println(result.No_actions_message)
+		} else {
+			printDefaultSuccessMessage()
+		}
 	}
 
 	return nil
