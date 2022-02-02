@@ -63,8 +63,8 @@ func CreateProject(c *cli.Context) error {
 	}
 
 	url := c.Args().Get(0)
-	destination := ""
-	if c.Args().Len() > 0 {
+	destination := "new-prjkt"
+	if c.Args().Len() > 1 {
 		destination = c.Args().Get(1)
 	}
 	preserveGit := c.Bool("preserve-git")
