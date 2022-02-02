@@ -25,7 +25,8 @@ user/repo#tag
 user/repo@branch
 
 Example:
-prjkt create -u user/repo@branch -d repo-with-branch
+prjkt create user/repo@branch
+prjkt create user/repo@branch test-project
 `
 
 var CreateProjectCommand = cli.Command{
@@ -34,19 +35,8 @@ var CreateProjectCommand = cli.Command{
 	Description: description,
 	Aliases:     []string{"c"},
 	Action:      CreateProject,
+	ArgsUsage:   "[url] [destination]",
 	Flags: []cli.Flag{
-		&cli.StringFlag{
-			Name:     "url",
-			Aliases:  []string{"u"},
-			Required: true,
-			Usage:    "The url of the repo to create project from",
-		},
-		&cli.StringFlag{
-			Name:    "destination",
-			Aliases: []string{"d"},
-			Usage:   "Path of the destination folder to clone to",
-			Value:   "new-prjkt",
-		},
 		&cli.BoolFlag{
 			Name:    "preserve-git",
 			Aliases: []string{"pg"},
@@ -68,8 +58,15 @@ func printDefaultSuccessMessage() {
 }
 
 func CreateProject(c *cli.Context) error {
-	url := c.String("url")
-	destination := c.String("destination")
+	if c.Args().Len() == 0 {
+		return errors.New("❌ No url passed in to create from")
+	}
+
+	url := c.Args().Get(0)
+	destination := ""
+	if c.Args().Len() > 0 {
+		destination = c.Args().Get(1)
+	}
 	preserveGit := c.Bool("preserve-git")
 
 	err := utils.CloneRepo(destination, url, preserveGit)
