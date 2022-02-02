@@ -70,7 +70,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
         matrix:
-          os: [macos-latest, ubuntu-latest, windows-latest]
+          os: [macos-latest, ubuntu-latest]
     steps:
       -
         name: Install Node.js, NPM and Yarn
