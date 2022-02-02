@@ -3,3 +3,4 @@ dist/
 # For testing
 new-prjkt/
 test.yaml
+installer/bin

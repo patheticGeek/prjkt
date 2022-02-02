@@ -17,10 +17,17 @@ Heavily Inspired by [degit](https://www.npmjs.com/package/degit). I liked the co
 
 ## Installation
 
-With npm (Preferred)
+#### With npm (Preferred)
 
 ```
-npm i -g prjkt-installer
+npm i -g prjkt
+prjkt help
+```
+
+#### With npx (You can directly run it)
+
+```
+npx prjkt help
 ```
 
 <details>

@@ -1,10 +1,13 @@
 {
-  "name": "prjkt-installer",
+  "name": "prjkt",
   "version": "0.1.0",
-  "description": "Installer for prjkt",
+  "description": "Project scaffolding simplified",
   "scripts": {
     "postinstall": "go-npm install",
     "preuninstall": "go-npm uninstall"
+  },
+  "bin": {
+    "prjkt": "./bin/prjkt"
   },
   "goBinary": {
     "name": "prjkt",
@@ -30,6 +33,6 @@
   },
   "homepage": "https://github.com/patheticGeek/prjkt#readme",
   "dependencies": {
-    "go-npm": "^0.1.9"
+    "@patheticgeek/go-npm": "^0.1.13"
   }
 }

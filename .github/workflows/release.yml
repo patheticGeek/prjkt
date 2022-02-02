@@ -78,8 +78,14 @@ jobs:
         with:
           node-version: 14
       -
-        name: Install prjkt-installer
-        run: npm install -g prjkt-installer
+        name: Install pnpm
+        run: curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@6
+      -
+        name: npx prjkt works
+        run: pnpx --yes prjkt help
+      -
+        name: Install prjkt
+        run: pnpm install -g prjkt
       -
         name: Run help command
         run: prjkt help
