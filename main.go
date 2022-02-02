@@ -29,6 +29,7 @@ func main() {
 		},
 		Commands: []*cli.Command{
 			&commands.CreateProjectCommand,
+			&commands.ListActionsCommand,
 		},
 	}
 
