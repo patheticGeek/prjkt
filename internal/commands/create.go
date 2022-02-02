@@ -4,9 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"internal/utils"
-	"io/ioutil"
-	"os"
-	"path/filepath"
 
 	"github.com/urfave/cli/v2"
 )
@@ -37,6 +34,12 @@ var CreateProjectCommand = cli.Command{
 	Action:      CreateProject,
 	ArgsUsage:   "[url] [destination]",
 	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:    "action",
+			Aliases: []string{"a"},
+			Value:   "",
+			Usage:   "Name of the predefined action you want to run",
+		},
 		&cli.BoolFlag{
 			Name:    "preserve-git",
 			Aliases: []string{"pg"},
@@ -45,7 +48,7 @@ var CreateProjectCommand = cli.Command{
 		},
 		&cli.BoolFlag{
 			Name:    "no-actions",
-			Aliases: []string{"a"},
+			Aliases: []string{"na"},
 			Value:   false,
 			Usage:   "If you don't want to run any actions",
 		},
@@ -65,10 +68,15 @@ func CreateProject(c *cli.Context) error {
 	url := c.Args().Get(0)
 	destination := "new-prjkt"
 	if c.Args().Len() > 1 {
-		destination = c.Args().Get(1)
+		arg := c.Args().Get(1)
+		// Check if this is not a flag (-a, --action, etc)
+		if arg[0] != '-' {
+			destination = c.Args().Get(1)
+		}
 	}
 	preserveGit := c.Bool("preserve-git")
 	noActions := c.Bool("no-actions")
+	action := c.String("action")
 
 	err := utils.CloneRepo(destination, url, preserveGit)
 	if err != nil {
@@ -76,17 +84,23 @@ func CreateProject(c *cli.Context) error {
 		return err
 	}
 
-	prjktYAMLPath := filepath.Join(destination, "/prjkt.yaml")
+	var fileData []byte
 
-	// Check if prjkt.yaml exists, if it doesn't exit
-	if _, err := os.Stat(prjktYAMLPath); errors.Is(err, os.ErrNotExist) {
-		printDefaultSuccessMessage()
-		return nil
+	// If user passed in a default action get that otherwise get repo's prjkt.yaml
+	if action != "" {
+		fileData, err = utils.GetDefaultAction(action)
+	} else {
+		fileData, err = utils.ReadRepoPrjktYAML(destination)
 	}
 
-	// Read the prjkt.yaml file
-	fileData, err := ioutil.ReadFile(prjktYAMLPath)
-	if err != nil {
+	// If there was no error and length is 0, that means there's no file/default action
+	if err == nil && len(fileData) == 0 {
+		fmt.Println("")
+		fmt.Println("ℹ️ No prjkt.yaml or default action found skipping")
+		printDefaultSuccessMessage()
+		return nil
+	} else if err != nil {
+		// If there was an error it means the file/default action was not fond
 		fmt.Println("🚨 An error occurred reading actions file")
 		return err
 	}
