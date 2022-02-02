@@ -11,7 +11,7 @@ Project scaffolding made easy!
     - [CLI Usage](#cli-usage)
       - [Create](#create)
       - [Create flags](#create-flags)
-      - [List Actions](#list-actions)
+      - [List Default Actions](#list-default-actions)
     - [prjkt.yaml file](#prjktyaml-file)
       - [Example file](#example-file)
       - [Messages](#messages)
