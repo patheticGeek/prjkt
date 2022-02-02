@@ -13,7 +13,7 @@ func main() {
 	app := &cli.App{
 		Name:    "prjkt",
 		Usage:   "Project creation simplified",
-		Version: "v0.1.0",
+		Version: "v0.2.0",
 		Authors: []*cli.Author{
 			{
 				Name:  "Pathetic Geek",
