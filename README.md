@@ -2,6 +2,8 @@
 
 Project scaffolding made easy!
 
+![Demo](/assets/demo.gif "Demo")
+
 ## Table of contents
 
 - [Motivation](#motivation)
